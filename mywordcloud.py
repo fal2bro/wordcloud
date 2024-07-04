@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import MeCab
+import re
 
 def CreateWordcloud(text):
     # MeCabを使用して日本語の単語を抽出
@@ -27,12 +28,15 @@ def filter_words(text):
     words = []
     
     # ストップワードリスト
-    stop_words = {'の', 'が', 'は', 'に', 'を', 'と', 'も', 'で', 'から', 'や', 'ば', 'へ', 'けど', 'です', 'ます', 'この', 'その', 'あの', 'だ', 'いる', 'ある', 'する', 'こと'}
+    stop_words = {'さい','せ','よう','い','さ','う','よ','の', 'が', 'は', 'に', 'を', 'と', 'も', 'で', 'から', 'や', 'ば', 'へ', 'けど', 'です', 'ます', 'この', 'その', 'あの', 'だ', 'いる', 'ある', 'する', 'こと'}
     
     while node:
         word = node.surface
         pos = node.feature.split(',')[0]
-        
+        #ひらがなを除外
+        if re.match(r'^[\u3040-\u309F]+$', word):
+            node = node.next
+            continue
         # 助詞、助動詞、記号、接続詞、ストップワードを除外
         if pos not in ['助詞', '助動詞', '記号', '接続詞'] and word not in stop_words:
             words.append(word)
