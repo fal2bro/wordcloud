@@ -9,11 +9,13 @@ def CreateWordcloud(text):
     #mecab = MeCab.Tagger("-Owakati")
     #text_wakati = mecab.parse(text)
     filtered_text = filter_words(text)
-    font_path=".\wordcloud\ipaexg00401\ipaexg.ttf"
+    #font_path=".\wordcloud\ipaexg00401\ipaexg.ttf"
+    #font_path=".\wordcloud\DotGothic16-Regular.ttf"
+    font_path=".\wordcloud\BIZUDGothic-Bold.ttf"
     # WordCloudオブジェクトを作成
-    max_words = 40
+    max_words = 100
     min_font_size=2
-    wordcloud = WordCloud(width=800, height=400, background_color='white', colormap='winter', collocations=False, font_path=font_path,max_words=max_words,min_font_size=min_font_size).generate(filtered_text)
+    wordcloud = WordCloud(width=400, height=400, background_color='white', colormap='winter', collocations=False, font_path=font_path,max_words=max_words,min_font_size=min_font_size).generate(filtered_text)
 
     # 画像を描画するためのプロットを作成
     plt.figure(figsize=(10, 5))
